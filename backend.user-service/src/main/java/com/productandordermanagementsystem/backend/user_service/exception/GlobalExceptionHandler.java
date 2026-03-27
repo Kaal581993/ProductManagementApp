@@ -1,8 +1,7 @@
-package com.productandordermanagementsystem.backend.user_service.controller;
+package com.productandordermanagementsystem.backend.user_service.exception;
 
 import com.productandordermanagementsystem.backend.user_service.dto.ApiErrorResponse;
-import com.productandordermanagementsystem.backend.user_service.exception.BadRequestException;
-import com.productandordermanagementsystem.backend.user_service.exception.ResourceNotFoundException;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.stream.Collectors;

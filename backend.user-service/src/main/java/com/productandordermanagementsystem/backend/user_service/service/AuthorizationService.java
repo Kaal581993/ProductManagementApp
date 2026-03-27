@@ -26,8 +26,11 @@ public class AuthorizationService {
             return new AuthorizationResponse(true, "Allowed by ABAC: resource owner");
         }
 
-        boolean sameDepartment = request.resourceDepartment() != null && request.resourceDepartment().equalsIgnoreCase(currentUser.getDepartment());
-        boolean sameRegion = request.resourceRegion() != null && request.resourceRegion().equalsIgnoreCase(currentUser.getRegion());
+        boolean sameDepartment = request
+                .resourceDepartment() != null && request.resourceDepartment()
+                .equalsIgnoreCase(currentUser.getDepartment());
+        boolean sameRegion = request.resourceRegion() != null &&
+                request.resourceRegion().equalsIgnoreCase(currentUser.getRegion());
         boolean readAction = request.action() == null || request.action().equalsIgnoreCase("READ");
 
         if (readAction && sameDepartment && sameRegion) {
