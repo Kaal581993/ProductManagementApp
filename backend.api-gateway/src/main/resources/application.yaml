@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: backend.api-gateway
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    gateway:
+      server:
+        webflux:
+          default-filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+          routes:
+            - id: authservice
+              uri: lb://backend.authservice
+              predicates:
+                - Path=/api/auth/**,/api/users/**,/api/authorization/**
+            - id: product-management
+              uri: lb://backend.product-management
+              predicates:
+                - Path=/api/products/**
+            - id: order-services
+              uri: lb://backend.order-services
+              predicates:
+                - Path=/api/cart/**,/api/orders/**
+            - id: event-management
+              uri: lb://backend.event-management
+              predicates:
+                - Path=/api/events/**
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    gateway:
+      enabled: true

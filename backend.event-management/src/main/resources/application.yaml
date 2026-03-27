@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: backend.event-management
+  config:
+    import: optional:configserver:http://localhost:8888

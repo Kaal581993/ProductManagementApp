@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: backend.user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: MySQL123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+server:
+  port: 8081
+
+app:
+  admin:
+    name: System Admin
+    email: admin@example.com
+    password: Admin@123
+    department: PLATFORM
+    region: GLOBAL

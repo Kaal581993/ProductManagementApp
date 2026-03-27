@@ -1,0 +1,5 @@
+package com.productandordermanagementsystem.backend.order_services.exception;
+
+public class BadRequestException extends RuntimeException {
+    public BadRequestException(String message) { super(message); }
+}

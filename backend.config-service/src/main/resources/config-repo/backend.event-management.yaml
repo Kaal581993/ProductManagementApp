@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: backend.event-management
+  datasource:
+    url: jdbc:mysql://localhost:3306/event_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: MySQL123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: event-management-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+server:
+  port: 8084
+
+app:
+  kafka:
+    order-topic: order.placed

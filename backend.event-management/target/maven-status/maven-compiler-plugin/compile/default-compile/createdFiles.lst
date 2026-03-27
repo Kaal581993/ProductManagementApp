@@ -1,0 +1,5 @@
+com/productandordermanagementsystem/backend/event_management/Application.class
+com/productandordermanagementsystem/backend/event_management/entity/StoredEvent.class
+com/productandordermanagementsystem/backend/event_management/service/EventConsumerService.class
+com/productandordermanagementsystem/backend/event_management/controller/EventController.class
+com/productandordermanagementsystem/backend/event_management/repository/StoredEventRepository.class

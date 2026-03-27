@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: backend.order-services
+  datasource:
+    url: jdbc:mysql://localhost:3306/order_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: MySQL123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+server:
+  port: 8083
+
+services:
+  product-base-url: http://backend.product-management
+  user-base-url: http://backend.user-service
+
+app:
+  kafka:
+    order-topic: order.placed

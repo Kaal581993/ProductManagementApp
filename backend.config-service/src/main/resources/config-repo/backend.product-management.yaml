@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: backend.product-management
+  datasource:
+    url: jdbc:mysql://localhost:3306/product_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: MySQL123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+server:
+  port: 8082
