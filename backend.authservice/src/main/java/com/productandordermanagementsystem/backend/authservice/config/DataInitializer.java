@@ -12,7 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class DataInitializer {
 
     @Bean
-    public ApplicationRunner adminInitializer(AdminProperties adminProperties, UserRepository repository, PasswordEncoder encoder) {
+    public ApplicationRunner adminInitializer(
+            AdminProperties adminProperties,
+            UserRepository repository,
+            PasswordEncoder encoder) {
         return args -> {
             if (repository.existsByEmail(adminProperties.email())) {
                 return;

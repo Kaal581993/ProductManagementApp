@@ -26,7 +26,11 @@ public class CartService {
     private final CurrentUserService currentUserService;
     private final ProductClient productClient;
 
-    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, CurrentUserService currentUserService, ProductClient productClient) {
+    public CartService(
+            CartRepository cartRepository,
+            CartItemRepository cartItemRepository,
+            CurrentUserService currentUserService,
+            ProductClient productClient) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
         this.currentUserService = currentUserService;
@@ -41,8 +45,10 @@ public class CartService {
     @Transactional
     public CartResponse addItem(AddCartItemRequest request, String authHeader) {
         Cart cart = getOrCreateCart();
+
         ProductSnapshot product = productClient.getProduct(request.productId(), authHeader);
         validateProduct(product, request.quantity());
+
         CartItem item = cartItemRepository.findByCartIdAndProductId(cart.getId(), request.productId()).orElseGet(() -> {
             CartItem newItem = new CartItem();
             newItem.setCart(cart);
@@ -96,8 +102,20 @@ public class CartService {
     }
 
     public CartResponse toResponse(Cart cart) {
-        List<CartItemResponse> items = cart.getItems().stream().map(item -> new CartItemResponse(item.getId(), item.getProductId(), item.getProductName(), item.getQuantity(), item.getUnitPrice(), item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity())))).toList();
-        BigDecimal total = items.stream().map(CartItemResponse::lineTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+        List<CartItemResponse> items = cart
+                .getItems()
+                .stream()
+                .map(item -> new
+                        CartItemResponse(item.getId(),
+                        item.getProductId(),
+                        item.getProductName(),
+                        item.getQuantity(),
+                        item.getUnitPrice(),
+                        item.getUnitPrice().multiply(
+                                BigDecimal.valueOf(item.getQuantity())))).toList();
+        BigDecimal total = items.stream()
+                .map(CartItemResponse::lineTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
         return new CartResponse(cart.getId(), items, total);
     }
 }

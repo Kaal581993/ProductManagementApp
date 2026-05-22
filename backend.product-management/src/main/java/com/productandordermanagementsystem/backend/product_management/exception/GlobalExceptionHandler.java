@@ -1,8 +1,7 @@
-package com.productandordermanagementsystem.backend.product_management.controller;
+package com.productandordermanagementsystem.backend.product_management.exception;
 
 import com.productandordermanagementsystem.backend.product_management.dto.error.ApiErrorResponse;
-import com.productandordermanagementsystem.backend.product_management.exception.BadRequestException;
-import com.productandordermanagementsystem.backend.product_management.exception.ResourceNotFoundException;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,7 +16,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = ex.getBindingResult().getFieldErrors().stream().collect(Collectors.toMap(f -> f.getField(), f -> f.getDefaultMessage() == null ? "Invalid value" : f.getDefaultMessage(), (a, b) -> a));
+        Map<String, String> errors =
+                ex.getBindingResult()
+                        .getFieldErrors().stream()
+                        .collect(Collectors.toMap(
+                                f -> f.getField(),
+                                f -> f.getDefaultMessage() == null ? "Invalid value" : f.getDefaultMessage(), (a, b) -> a));
         return build(HttpStatus.BAD_REQUEST, "Validation failed", errors);
     }
 
